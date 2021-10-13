@@ -1,0 +1,29 @@
+﻿@model MovieToon.Models.MovieCategoryModel
+
+@{
+    ViewData["Title"] = "Delete movie category";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-white border-bottom">
+        <li class="breadcrumb-item" aria-current="page">Movies</li>
+        <li class="breadcrumb-item" aria-current="page">Categories</li>
+        <li class="breadcrumb-item active" aria-current="page">Delete</li>
+    </ol>
+</nav>
+
+<div class="card mx-auto" style="width: 18rem;">
+    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap">
+        <rect width="100%" height="100%" fill="#868e96"></rect>
+    </svg>
+    <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(model => model.Name)</h5>
+        <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+        <h6>Are you sure you want to delete this?</h6>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+        </form>
+    </div>
+</div>

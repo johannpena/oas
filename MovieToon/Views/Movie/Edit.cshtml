@@ -1,0 +1,59 @@
+﻿@model MovieToon.Models.MovieModel
+
+@{
+    ViewData["Title"] = "Edit movie";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-white border-bottom">
+        <li class="breadcrumb-item" aria-current="page">Movies</li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-4 offset-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input asp-for="Price" class="form-control" type="number" min="0.1" step="0.1" />
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieClasificationId" class="control-label"></label>
+                <select asp-for="MovieClasificationId" class="form-control" asp-items="ViewBag.MovieClasificationId"></select>
+                <span asp-validation-for="MovieClasificationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieCategoryId" class="control-label"></label>
+                <select asp-for="MovieCategoryId" class="form-control" asp-items="ViewBag.MovieCategoryId"></select>
+                <span asp-validation-for="MovieCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group float-right">
+                <input type="submit" value="Edit" class="btn btn-success" />
+                <a class="btn btn-danger" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

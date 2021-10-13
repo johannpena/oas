@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MovieToon.Models.MovieClasificationModel>
+
+@{
+    ViewData["Title"] = "Movie clasifications";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-white border-bottom">
+        <li class="breadcrumb-item" aria-current="page">Movies</li>
+        <li class="breadcrumb-item" aria-current="page">Clasifications</li>
+        <li class="breadcrumb-item active" aria-current="page">List</li>
+    </ol>
+</nav>
+
+<a class="btn btn-success float-right mb-3" asp-action="Create">Create New</a>
+
+<table class="table table-hover table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td class="text-center">
+                    <a class="btn btn-sm btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id" title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-route-id="@item.Id" title="Details"><i class="fa fa-eye"></i></a>
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id" title="Delete"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+
+        @if (Model.Count() == 0)
+        {
+            <tr><td colspan="3">No movie data retrieve.</td></tr>
+        }
+    </tbody>
+</table>

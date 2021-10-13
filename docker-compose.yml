@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  movietoon:
+    build:
+      context: ./
+      dockerfile: MovieToon/Dockerfile
+    ports:
+      - 55000:80
+    depends_on:
+      - mssql
+    links:
+      - mssql
+    networks:
+      - movietoon
+    restart: unless-stopped
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 1432:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=tg8EXRTua@*s
+      - MSSQL_PID=Express
+    networks:
+      - movietoon
+    volumes:
+      - ./mssql:/var/opt/mssql
+    restart: unless-stopped
+
+networks:
+  movietoon:

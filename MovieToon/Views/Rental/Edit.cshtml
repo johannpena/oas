@@ -1,0 +1,69 @@
+﻿@model MovieToon.Models.RentalModel
+
+@{
+    ViewData["Title"] = "Edit rental";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-white border-bottom">
+        <li class="breadcrumb-item" aria-current="page">Rentals</li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-4 offset-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CustomerId" class="control-label"></label>
+                <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group float-right">
+                <input type="submit" value="Edit" class="btn btn-success" />
+                <a class="btn btn-danger" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="row row-cols-1 row-cols-md-2">
+    @foreach (RentalMovieModel movie in Model.RentalMovies)
+    {
+        <div class="col mb-4">
+            <div class="card">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap">
+                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                </svg>
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Movie.Name</h5>
+                    <div class="card-text">
+                        @movie.Movie.Description
+                        <br />
+                        <sub class="float-right">$ @(movie.Movie.Price * (1 - Model.Customer.Membership.Discount))</sub>
+                        <br />
+                        <sub class="float-left">Clasification: @movie.Movie.MovieClasification.Name</sub>
+                        <sub class="float-right">@movie.Movie.MovieCategory.Name</sub>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
